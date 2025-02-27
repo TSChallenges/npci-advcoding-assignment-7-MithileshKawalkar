@@ -60,15 +60,47 @@ public class ProductController {
     }
 
     // TODO: API to search products by name
-
+    @GetMapping("/search")
+    public ResponseEntity<List<Product>> searchProducts(@RequestParam("name") String name) {
+        List<Product> p = productService.searchProducts(name);
+        if (!p.isEmpty()) {
+            return new ResponseEntity<>(p, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
 
     // TODO: API to filter products by category
-
+    @GetMapping("/filter/category")
+    public ResponseEntity<List<Product>> searchProductsByCategory(@RequestParam("category") String category) {
+        List<Product> p = productService.searchProductsByCategory(category);
+        if (!p.isEmpty()) {
+            return new ResponseEntity<>(p, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
 
     // TODO: API to filter products by price range
-
+    @GetMapping("/filter/price")
+    public ResponseEntity<List<Product>> searchProductsByCategory(@RequestParam("minPrice") Double minPrice,@RequestParam("maxPrice") Double maxPrice) {
+        List<Product> p = productService.searchProductsByPrice(minPrice,maxPrice);
+        if (!p.isEmpty()) {
+            return new ResponseEntity<>(p, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
 
     // TODO: API to filter products by stock quantity range
-
+    @GetMapping("/filter/stock")
+    public ResponseEntity<List<Product>> searchProductsByStock(@RequestParam("minStock") int minStock,@RequestParam("maxStock") int maxStock) {
+        List<Product> p = productService.searchProductsByStock(minStock,maxStock);
+        if (!p.isEmpty()) {
+            return new ResponseEntity<>(p, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
 
 }
